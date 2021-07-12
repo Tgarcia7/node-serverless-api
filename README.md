@@ -57,7 +57,7 @@ Automatically fix linting errors (minor fixes)
 npm run lint:fix
 ```
 
-### Set up Serverless dashboard
+### Set up and deploy to Serverless dashboard
 
 ```
 serverless login
