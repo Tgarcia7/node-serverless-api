@@ -1,0 +1,52 @@
+org: tgarcia7
+app: serverless-api
+service: api
+useDotenv: true
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  serverless-offline:
+    noPrependStageInUrl: true
+  # prune:
+  #   automatic: true
+  #   number: 2
+  # domains:
+  #   prod: serverless-api.com
+  #   dev: dev-serverless-api.com
+  # customDomain:
+  #   domainName: ${self:custom.domains.${self:custom.stage}}
+  #   certificateName: '*.serverless-api.com'
+  #   endpointType: 'edge'
+  #   securityPolicy: tls_1_2
+  #   stage: "${self:custom.stage}"
+  #   createRoute53Record: true
+  cors: 
+    origin: '*'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  timeout: 30
+  environment:
+    DB_HOST: ${params:DB_HOST, env:DB_HOST}
+    DB_USER: ${params:DB_USER, env:DB_USER}
+    DB_PASSWORD: ${params:DB_PASSWORD, env:DB_PASSWORD}
+    DB_PORT: ${params:DB_PORT, env:DB_PORT}
+
+plugins:
+  - serverless-offline
+  # - serverless-domain-manager
+  # - serverless-prune-plugin
+
+functions:
+  app:
+    handler: server.handler
+    events:
+      - http: 'ANY /'
+
+  health-check:
+    handler: server.handler
+    events:
+      - http: 'GET /healthcheck'
