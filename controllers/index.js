@@ -1,17 +1,17 @@
 'use strict'
-const logger = require('../logger/index')
 const HTTP_STATUS_CODES = require('http').STATUS_CODES
+const pino = require('pino')
+const logger = pino({ prettyPrint: true })
 
 async function healthCheck(req, res) {
-  logger.create(logger.LEVELS.INFO, '200', 'HealthCheck endpoint succesfully processed', 
-    HTTP_STATUS_CODES[200], req.body)
+  logger.info('HealthCheck endpoint processed succesfully')
   res.status(200).send(HTTP_STATUS_CODES[200])
 }
 
 async function notFound(req, res) {
   if (!req.route) {
-    logger.create(logger.LEVELS.INFO, '200', `A not found endpoint was requested: ${req.originalUrl}`, 
-      HTTP_STATUS_CODES.OK, req.body)
+    const logChild = logger.child({ endpoint: req.originalUrl })
+    logChild.info('A not found endpoint was requested')
     res.status(404).send(HTTP_STATUS_CODES[404])
   }
 }
