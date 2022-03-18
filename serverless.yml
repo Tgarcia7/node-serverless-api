@@ -22,6 +22,9 @@ custom:
   #   createRoute53Record: true
   cors: 
     origin: '*'
+  datadog:
+    addExtension: true
+    apiKey: ${self:provider.environment.DD_API_KEY}
 
 provider:
   name: aws
@@ -34,9 +37,11 @@ provider:
     DB_USER: ${params:DB_USER, env:DB_USER}
     DB_PASSWORD: ${params:DB_PASSWORD, env:DB_PASSWORD}
     DB_PORT: ${params:DB_PORT, env:DB_PORT}
+    DD_API_KEY: ${params:DD_API_KEY, env:DD_API_KEY}
 
 plugins:
   - serverless-offline
+  - serverless-plugin-datadog
   # - serverless-domain-manager
   # - serverless-prune-plugin
 

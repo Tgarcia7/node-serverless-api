@@ -4,7 +4,8 @@ const pino = require('pino')
 const logger = pino({ prettyPrint: true })
 
 async function healthCheck(req, res) {
-  logger.info('HealthCheck endpoint processed succesfully')
+  logger.info('HealthCheck endpoint processed succesfully. Pino example')
+  console.log('HealthCheck endpoint processed succesfully. Log example')
   res.status(200).send(HTTP_STATUS_CODES[200])
 }
 
