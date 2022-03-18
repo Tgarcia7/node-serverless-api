@@ -1,11 +1,11 @@
 'use strict'
 const HTTP_STATUS_CODES = require('http').STATUS_CODES
-const pino = require('pino')
-const logger = pino({ prettyPrint: true })
+const logger = require('pino')()
 
 async function healthCheck(req, res) {
-  logger.info('HealthCheck endpoint processed succesfully. Pino example')
-  console.log('HealthCheck endpoint processed succesfully. Log example')
+  const child = logger.child({ type: 'pino', prop: 'value' })
+  child.info('HealthCheck endpoint processed succesfully')
+  console.log({msg: 'HealthCheck endpoint processed succesfully', type: 'log', prop: 'value'})
   res.status(200).send(HTTP_STATUS_CODES[200])
 }
 

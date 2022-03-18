@@ -4,8 +4,7 @@ const express = require('express')
 const http = require('http')
 const router = require('./routes')
 const serverless = require('serverless-http')
-const pino = require('pino')
-const logger = pino({ prettyPrint: true })
+const logger = require('pino')()
 // require('./models/') // init DB connection
 
 const app = express()
