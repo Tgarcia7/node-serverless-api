@@ -38,6 +38,8 @@ provider:
     DB_PASSWORD: ${params:DB_PASSWORD, env:DB_PASSWORD}
     DB_PORT: ${params:DB_PORT, env:DB_PORT}
     DD_API_KEY: ${params:DD_API_KEY, env:DD_API_KEY}
+    DD_ENV: ${self:custom.stage}
+    DD_SERVICE: ${self:app}
 
 plugins:
   - serverless-offline

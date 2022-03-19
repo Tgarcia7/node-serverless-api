@@ -5,7 +5,6 @@ const logger = require('pino')()
 async function healthCheck(req, res) {
   const child = logger.child({ type: 'pino', prop: 'value' })
   child.info('HealthCheck endpoint processed succesfully')
-  console.log({msg: 'HealthCheck endpoint processed succesfully', type: 'log', prop: 'value'})
   res.status(200).send(HTTP_STATUS_CODES[200])
 }
 
